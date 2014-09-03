@@ -24,13 +24,19 @@
 
             <div>
                 <button onclick="javascript:clearArea();return false;">Clear Area</button>
-                Line width : <select id="selWidth">
+
+                Line width : 
+                <select id="selWidth">
                     <option value="1" selected>1</option>
                 </select>
+
                 Color :<input type="text" maxlength="6" size="6" id="colorpickerField" value="00ff00">
-                <input type="button" id="btLinha" class="buttons" value="Linha"></input>
-                <input type="button" id="btRetangulo" class="buttons" value="Ret&acirc;ngulo"></input>
-                <input type="button" id="btCirculo" class="buttons" value="C&iacute;rculo"></input>
+
+                <input type="radio" name="forma" value="pincel" checked>Pincel
+                <input type="radio" name="forma" value="linha">Linha
+                <input type="radio" name="forma" value="retangulo">Ret&acirc;ngulo
+                <input type="radio" name="forma" value="circulo">Circulo
+
                 <input type="button" id="btSelecionarArea" class="buttons" value="Selecionar"></input>
                 <input type="button" id="btCopiarArea" class="buttons" value="Copiar"></input>
                 <input type="button" id="btLimparArea" class="buttons" value="Limpar"></input>
