@@ -1,12 +1,14 @@
+<!DOCTYPE html>
 <html>
     <head>
+        <meta charset="utf-8">
         <script>
             var mousePressed = false;
-            var lastX, lastY;
-            var ctx;
-
+            var lastX, lastY, ctx, select;
+            
             function InitThis() {
                 ctx = document.getElementById('myCanvas').getContext("2d");
+                select = document.getElementById("selWidth");
 
                 $('#myCanvas').mousedown(function (e) {
                     mousePressed = true;
@@ -22,9 +24,17 @@
                 $('#myCanvas').mouseup(function (e) {
                     mousePressed = false;
                 });
-                    $('#myCanvas').mouseleave(function (e) {
+                
+                $('#myCanvas').mouseleave(function (e) {
                     mousePressed = false;
                 });
+
+                for (var i = 2; i<=100; i++){
+                    var opt = document.createElement('option');
+                    opt.value = i;
+                    opt.innerHTML = i;
+                    select.appendChild(opt);
+                }
             }
 
             function Draw(x, y, isDown) {
@@ -55,16 +65,11 @@
             <br /><br />
             <button onclick="javascript:clearArea();return false;">Clear Area</button>
             Line width : <select id="selWidth">
-                <option value="1">1</option>
-                <option value="3">3</option>
-                <option value="5">5</option>
-                <option value="7">7</option>
-                <option value="9" selected="selected">9</option>
-                <option value="11">11</option>
+                <option value="1" selected>1</option>
             </select>
             Color : <select id="selColor">
-                <option value="black">black</option>
-                <option value="blue" selected="selected">blue</option>
+                <option value="black" selected="selected">black</option>
+                <option value="blue">blue</option>
                 <option value="red">red</option>
                 <option value="green">green</option>
                 <option value="yellow">yellow</option>
