@@ -10,3 +10,8 @@
 #btInserirTexto{
 	vertical-align: top;
 }
+
+#opcoes {
+	padding: 5px;
+	margin: 5px;
+}

@@ -1,18 +1,23 @@
 var mousePressed = false;
-var lastX, lastY, ctx, select;
+var lastX, lastY, ctx, lineWidth;
 
 function InitThis() {
     ctx = document.getElementById('myCanvas').getContext("2d");
-    select = document.getElementById("selWidth");
+    lineWidth = document.getElementById("selWidth");
+    tool = document.getElementsByName("forma");
 
     $('#myCanvas').mousedown(function (e) {
         mousePressed = true;
-        Draw(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, false);
+        if(tool[0].checked){
+            Brush(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, false);
+        }
     });
 
     $('#myCanvas').mousemove(function (e) {
         if (mousePressed) {
-            Draw(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, true);
+            if(tool[0].checked){
+                Brush(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, true);
+            }
         }
     });
 
@@ -28,7 +33,7 @@ function InitThis() {
         var opt = document.createElement('option');
         opt.value = i;
         opt.innerHTML = i;
-        select.appendChild(opt);
+        lineWidth.appendChild(opt);
     }
 
     $('#colorpickerField').ColorPicker({
@@ -45,7 +50,7 @@ function InitThis() {
     });
 }
 
-function Draw(x, y, isDown) {
+function Brush(x, y, isDown) {
     if (isDown) {
         ctx.beginPath();
         ctx.strokeStyle = '\#' + $('#colorpickerField').val();
@@ -57,6 +62,10 @@ function Draw(x, y, isDown) {
         ctx.stroke();
     }
     lastX = x; lastY = y;
+}
+
+function draw(tool){
+
 }
     
 function clearArea() {
