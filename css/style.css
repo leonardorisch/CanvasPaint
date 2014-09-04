@@ -1,3 +1,7 @@
+html, body {
+	background-color: #323232;
+}
+
 .buttons{
 	border: 1pt solid rgb(107, 107, 107);
 	padding: 2pt;
@@ -12,8 +16,8 @@
 }
 
 #opcoes {
-	padding: 5px;
-	margin: 5px;
+	padding: 10px;
+	background-color:#f4f4f4;
 }
 
 #opcoes ul {
@@ -22,4 +26,13 @@
 
 #opcoes ul li {
 	display: inline;
+}
+
+.canvas-holder {
+	margin-top: 30px;
+}
+
+#myCanvas {
+	border: 1px solid #ddd;
+	background-color: white;
 }
