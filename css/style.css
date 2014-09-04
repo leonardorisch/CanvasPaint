@@ -5,9 +5,6 @@ html, body {
 .buttons{
 	border: 1pt solid rgb(107, 107, 107);
 	padding: 2pt;
-}
-
-.textOptions input{
 	vertical-align: middle;
 }
 
