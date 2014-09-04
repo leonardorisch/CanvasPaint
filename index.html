@@ -19,7 +19,7 @@
 		<div id="opcoes" style="border: 1pt solid black; float: left">
 			<ul>
 				<li>
-					<input type="image" src="images/new.png" onclick="javascript:clearArea();return false;" class="buttons"/>
+					<input type="image" src="images/new.png" onclick="javascript:clearArea();return false;" class="buttons" title="Novo documento"/>
 				</li>
 				<li>
 					<input type="radio" name="forma" value="pincel" checked>Pincel
@@ -34,12 +34,12 @@
 					<input type="radio" name="forma" value="circulo">Circulo
 				</li>
 				<li>
-					<input type="image" src="images/selection.png" id="btSelecionarArea" class="buttons" />			
-					<input type="image" src="images/copy.png"  id="btCopiarArea" class="buttons" />					
-					<input type="image" src="images/erase.png" id="btLimparArea" class="buttons" />
+					<input type="image" src="images/selection.png" id="btSelecionarArea" class="buttons"  title="Selecionar uma area"/>			
+					<input type="image" src="images/copy.png"  id="btCopiarArea" class="buttons" title="Copiar area selecionada"/>					
+					<input type="image" src="images/erase.png" id="btLimparArea" class="buttons" title="Limpar area selecionada"/>
 				</li>
 				<li class="textOptions">
-					<input type="image" id="btInserirTexto" src="images/font.png" class="buttons" />
+					<input type="image" id="btInserirTexto" src="images/font.png" class="buttons" title="Inserir texto"/>
 					<select id="selTextoFonte">
 						<option value="arial">Arial</option>
 						<option value="timesNewRoman" selected="selected">Times New Roman</option>               
