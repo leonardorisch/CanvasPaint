@@ -10,19 +10,16 @@ function InitThis() {
         mousePressed = true;
         if(tool[0].checked){
             Brush(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, false);
-        } else if(tool[1].checked){
-            lastX = e.pageX - $(this).offset().left;
-            lastY = e.pageY - $(this).offset().top;
         }
+        lastX = e.pageX - $(this).offset().left;
+        lastY = e.pageY - $(this).offset().top;
     });
 
     $('#myCanvas').mousemove(function (e) {
         if (mousePressed) {
             if(tool[0].checked){
                 Brush(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, true);
-            } else if(tool[1].checked){
             }
-        } else {
         }
     });
 
@@ -30,6 +27,8 @@ function InitThis() {
         mousePressed = false;
         if(tool[1].checked){
             Line(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, true);
+        } else if(tool[2].checked){
+            Rectangle(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, true);
         }
     });
     
@@ -79,6 +78,14 @@ function Line(x, y, isDown){
     ctx.lineWidth = $('#selWidth').val();
     ctx.moveTo(lastX, lastY);
     ctx.lineTo(x, y);
+    ctx.stroke();
+}
+
+function Rectangle(x, y){
+    ctx.beginPath();
+    ctx.strokeStyle = '\#' + $('#colorpickerField').val();
+    ctx.lineWidth = $('#selWidth').val();
+    ctx.rect(lastX,lastY,x,y);
     ctx.stroke();
 }
 
