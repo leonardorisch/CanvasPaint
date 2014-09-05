@@ -33,3 +33,7 @@ html, body {
 	border: 1px solid #ddd;
 	background-color: white;
 }
+
+input {
+	vertical-align: middle;
+}

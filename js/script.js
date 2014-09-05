@@ -10,6 +10,8 @@ function InitThis() {
         mousePressed = true;
         if(tool[0].checked){
             Brush(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, false);
+        } else if(tool[1].checked){
+            Line(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, false);
         }
     });
 
@@ -17,6 +19,8 @@ function InitThis() {
         if (mousePressed) {
             if(tool[0].checked){
                 Brush(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, true);
+            } else if(tool[1].checked){
+                Line(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, true);
             }
         }
     });
@@ -62,6 +66,15 @@ function Brush(x, y, isDown) {
         ctx.stroke();
     }
     lastX = x; lastY = y;
+}
+
+function Line(x, y, isDown){
+    ctx.beginPath();
+    ctx.strokeStyle = '\#' + $('#colorpickerField').val();
+    ctx.lineWidth = $('#selWidth').val();
+    ctx.moveTo(x, y);
+    ctx.lineTo(x+200, y+200);
+    ctx.stroke();
 }
 
 function draw(tool){
