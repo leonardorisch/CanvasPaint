@@ -48,6 +48,7 @@ function InitThis() {
     .bind('keyup', function(){
         $(this).ColorPickerSetColor(this.value);
     });
+	changeCursorCrosshair();
 }
 
 function Brush(x, y, isDown) {
@@ -72,4 +73,8 @@ function clearArea() {
     // Use the identity matrix while clearing the canvas
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+}
+
+function changeCursorCrosshair(){
+	$('#myCanvas').css('cursor','crosshair');
 }
