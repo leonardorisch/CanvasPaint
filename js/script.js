@@ -11,7 +11,8 @@ function InitThis() {
         if(tool[0].checked){
             Brush(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, false);
         } else if(tool[1].checked){
-            Line(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, false);
+            lastX = e.pageX - $(this).offset().left;
+            lastY = e.pageY - $(this).offset().top;
         }
     });
 
@@ -20,13 +21,16 @@ function InitThis() {
             if(tool[0].checked){
                 Brush(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, true);
             } else if(tool[1].checked){
-                Line(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, true);
             }
+        } else {
         }
     });
 
     $('#myCanvas').mouseup(function (e) {
         mousePressed = false;
+        if(tool[1].checked){
+            Line(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, true);
+        }
     });
     
     $('#myCanvas').mouseleave(function (e) {
@@ -73,8 +77,8 @@ function Line(x, y, isDown){
     ctx.beginPath();
     ctx.strokeStyle = '\#' + $('#colorpickerField').val();
     ctx.lineWidth = $('#selWidth').val();
-    ctx.moveTo(x, y);
-    ctx.lineTo(x+200, y+200);
+    ctx.moveTo(lastX, lastY);
+    ctx.lineTo(x, y);
     ctx.stroke();
 }
 
