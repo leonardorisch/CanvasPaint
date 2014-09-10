@@ -1,16 +1,18 @@
 var mousePressed = false;
 var lastX, lastY, ctx, lineWidth;
 var tool;
+
 function InitThis() {
 
     $('#myCanvas').unbind("mousedown");
     $('#myCanvas').unbind("mouseup");
     $('#myCanvas').unbind("mousemove");
     $('#myCanvas').unbind("mouseleave");
+
     ctx = document.getElementById('myCanvas').getContext("2d");
     lineWidth = document.getElementById("selWidth");
     tool = document.getElementsByName("forma");
-    console.log(tool[0].checked)
+
     if(tool[0].checked){
         Brush();
     }
@@ -31,18 +33,6 @@ function InitThis() {
         lineWidth.appendChild(opt);
     }
 
-    $('#colorpickerField').ColorPicker({
-        onSubmit: function(hsb, hex, rgb, el) {
-            $(el).val(hex);
-            $(el).ColorPickerHide();
-        },
-        onBeforeShow: function () {
-            $(this).ColorPickerSetColor(this.value);
-        }
-    })
-    .bind('keyup', function(){
-        $(this).ColorPickerSetColor(this.value);
-    });
 	changeCursorCrosshair();
 }
 
@@ -76,7 +66,7 @@ function Brush() {
 function drawBrush(x, y, isDown){
     if (isDown) {
        ctx.beginPath();
-       ctx.strokeStyle = '\#' + $('#colorpickerField').val();
+       ctx.strokeStyle = $('#colorpickerField').val();
        ctx.lineWidth = $('#selWidth').val();
        ctx.lineJoin = "round";
        ctx.moveTo(lastX, lastY);
@@ -106,7 +96,7 @@ function Line(){
 
 function drawLine(x, y, isDown){
     ctx.beginPath();
-    ctx.strokeStyle = '\#' + $('#colorpickerField').val();
+    ctx.strokeStyle = $('#colorpickerField').val();
     ctx.lineWidth = $('#selWidth').val();
     ctx.moveTo(lastX, lastY);
     ctx.lineTo(x, y);
@@ -130,17 +120,46 @@ function Rectangle(){
 
 function drawRectangle(lastX, lastY, x, y){
     ctx.beginPath();
-    ctx.strokeStyle = '\#' + $('#colorpickerField').val();
+    ctx.strokeStyle = $('#colorpickerField').val();
+    ctx.fillStyle = $('#colorpickerField2').val();
     ctx.lineWidth = $('#selWidth').val();
     ctx.strokeRect(lastX,lastY,x,y);
+    ctx.fill();
 }
 
-function draw(tool){
+function Circle(){
+    $('#myCanvas').mousedown(function (e) {
+        mousePressed = true;
+        lastX = e.pageX - $(this).offset().left;
+        lastY = e.pageY - $(this).offset().top;
+    });
 
+    $('#myCanvas').mouseup(function (e) {
+        mousePressed = false;
+        drawCircle(lastX, lastY, e.pageX - $(this).offset().left - lastX, e.pageY - $(this).offset().top - lastY);
+    });
+    
+}
+
+function drawCircle(lastX, lastY, x, y){
+    ctx.beginPath();
+    ctx.strokeStyle = $('#colorpickerField').val();
+    ctx.fillStyle = $('#colorpickerField2').val();
+    ctx.lineWidth = $('#selWidth').val();
+    ctx.arc(lastX, lastY, getRadius(x, y, lastX, lastY), 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.fill();
+}
+
+function getRadius(x, y, lastX, lastY){
+    b = (x - lastX < 0 ? (x - lastX) * -1 : x - lastX);
+    c = (y - lastY < 0 ? (y - lastY) * -1 : y - lastY);
+    a = Math.sqrt(b*b + c*c);
+
+    return a;
 }
     
 function clearArea() {
-    // Use the identity matrix while clearing the canvas
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 }
