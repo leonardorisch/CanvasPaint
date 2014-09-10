@@ -9,8 +9,6 @@ html, body {
         display: inline; }
         html #opcoes ul li input, body #opcoes ul li input {
           vertical-align: middle; }
-          html #opcoes ul li input#btInserirTexto, body #opcoes ul li input#btInserirTexto {
-            vertical-align: top; }
           html #opcoes ul li input.buttons, body #opcoes ul li input.buttons {
             border: 1pt solid #6b6b6b;
             padding: 2pt;
