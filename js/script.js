@@ -127,6 +127,7 @@ function drawRectangle(lastX, lastY, x, y){
     ctx.fillStyle = $('#colorpickerField2').val();
     ctx.lineWidth = $('#selWidth').val();
     ctx.strokeRect(lastX,lastY,x,y);
+    ctx.fillRect(lastX,lastY,x,y);
     ctx.fill();
 }
 
@@ -139,7 +140,7 @@ function Circle(){
 
     $('#myCanvas').mouseup(function (e) {
         mousePressed = false;
-        drawCircle(lastX, lastY, e.pageX - $(this).offset().left - lastX, e.pageY - $(this).offset().top - lastY);
+        drawCircle(lastX, lastY, e.pageX - $(this).offset().left, e.pageY - $(this).offset().top);
     });
     
 }
@@ -193,6 +194,7 @@ function insertText(x,y){
     ctx.font = tamanhoFonte+'pt ' + font;
     ctx.strokeStyle = $('#colorpickerField').val();
     ctx.fillStyle = $('#colorpickerField2').val();
+    ctx.lineWidth = $('#selWidth').val();
     ctx.fillText(text, x, y);
     ctx.strokeText(text, x, y);
     text = null;
