@@ -1,40 +1,28 @@
 var mousePressed = false;
 var lastX, lastY, ctx, lineWidth;
-
+var tool;
 function InitThis() {
+
+    $('#myCanvas').unbind("mousedown");
+    $('#myCanvas').unbind("mouseup");
+    $('#myCanvas').unbind("mousemove");
+    $('#myCanvas').unbind("mouseleave");
     ctx = document.getElementById('myCanvas').getContext("2d");
     lineWidth = document.getElementById("selWidth");
     tool = document.getElementsByName("forma");
-
-    $('#myCanvas').mousedown(function (e) {
-        mousePressed = true;
-        if(tool[0].checked){
-            Brush(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, false);
-        }
-        lastX = e.pageX - $(this).offset().left;
-        lastY = e.pageY - $(this).offset().top;
-    });
-
-    $('#myCanvas').mousemove(function (e) {
-        if (mousePressed) {
-            if(tool[0].checked){
-                Brush(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, true);
-            }
-        }
-    });
-
-    $('#myCanvas').mouseup(function (e) {
-        mousePressed = false;
-        if(tool[1].checked){
-            Line(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, true);
-        } else if(tool[2].checked){
-            Rectangle(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, true);
-        }
-    });
-    
-    $('#myCanvas').mouseleave(function (e) {
-        mousePressed = false;
-    });
+    console.log(tool[0].checked)
+    if(tool[0].checked){
+        Brush();
+    }
+    else if (tool[1].checked){
+        Line();
+    }
+    else if (tool[2].checked) {
+        Rectangle();
+    }
+    else if (tool[3].checked) {
+        Circle();
+    }    
 
     for (var i = 2; i<=100; i++){
         var opt = document.createElement('option');
@@ -58,35 +46,93 @@ function InitThis() {
 	changeCursorCrosshair();
 }
 
-function Brush(x, y, isDown) {
+function Brush() {
+
+    $('#myCanvas').mouseup(function (e) {
+        mousePressed = false;
+    });
+
+    $('#myCanvas').mousedown(function (e) {
+        mousePressed = true;
+        var x = e.pageX - $(this).offset().left;
+        var y = e.pageY - $(this).offset().top;
+        drawBrush(x, y, false);
+        lastX = e.pageX - $(this).offset().left;
+        lastY = e.pageY - $(this).offset().top;
+    });
+
+
+    $('#myCanvas').mousemove(function (e) {
+        if (mousePressed) {
+            var x = e.pageX - $(this).offset().left;
+            var y = e.pageY - $(this).offset().top;
+            drawBrush(x, y, true);
+        }
+        lastX = x; lastY = y;
+    });
+    
+}
+
+function drawBrush(x, y, isDown){
     if (isDown) {
-        ctx.beginPath();
-        ctx.strokeStyle = '\#' + $('#colorpickerField').val();
-        ctx.lineWidth = $('#selWidth').val();
-        ctx.lineJoin = "round";
-        ctx.moveTo(lastX, lastY);
-        ctx.lineTo(x, y);
-        ctx.closePath();
-        ctx.stroke();
+       ctx.beginPath();
+       ctx.strokeStyle = '\#' + $('#colorpickerField').val();
+       ctx.lineWidth = $('#selWidth').val();
+       ctx.lineJoin = "round";
+       ctx.moveTo(lastX, lastY);
+       ctx.lineTo(x, y);
+       ctx.closePath();
+       ctx.stroke();
     }
     lastX = x; lastY = y;
 }
 
-function Line(x, y, isDown){
+
+function Line(){
+    $('#myCanvas').mouseup(function (e) {
+        mousePressed = false;
+        x = e.pageX - $(this).offset().left;
+        y = e.pageY - $(this).offset().top;
+        drawLine(x, y, lastX, lastY, true);
+    });
+
+    $('#myCanvas').mousedown(function (e) {
+        mousePressed = true;
+        lastX = e.pageX - $(this).offset().left;
+        lastY = e.pageY - $(this).offset().top;
+    });
+
+}
+
+function drawLine(x, y, isDown){
     ctx.beginPath();
     ctx.strokeStyle = '\#' + $('#colorpickerField').val();
     ctx.lineWidth = $('#selWidth').val();
     ctx.moveTo(lastX, lastY);
     ctx.lineTo(x, y);
+    console.log(lastX, lastY, x, y)
     ctx.stroke();
 }
 
-function Rectangle(x, y){
+function Rectangle(){
+    $('#myCanvas').mousedown(function (e) {
+        mousePressed = true;
+        lastX = e.pageX - $(this).offset().left;
+        lastY = e.pageY - $(this).offset().top;
+    });
+
+    $('#myCanvas').mouseup(function (e) {
+        mousePressed = false;
+        drawRectangle(lastX, lastY, e.pageX - $(this).offset().left - lastX, e.pageY - $(this).offset().top - lastY);
+    });
+    
+}
+
+function drawRectangle(lastX, lastY, x, y){
     ctx.beginPath();
     ctx.strokeStyle = '\#' + $('#colorpickerField').val();
     ctx.lineWidth = $('#selWidth').val();
-    ctx.rect(lastX,lastY,x,y);
-    ctx.stroke();
+    ctx.strokeRect(lastX,lastY,x,y);
 }
 
 function draw(tool){
@@ -101,4 +147,8 @@ function clearArea() {
 
 function changeCursorCrosshair(){
 	$('#myCanvas').css('cursor','crosshair');
+}
+
+function verifyIfHasChangeOnInput(){
+    InitThis();
 }
