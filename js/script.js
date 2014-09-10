@@ -24,6 +24,9 @@ function InitThis() {
     }
     else if (tool[3].checked) {
         Circle();
+    }
+    else if (tool[4].checked) {
+        Text();
     }    
 
     for (var i = 2; i<=100; i++){
@@ -170,4 +173,36 @@ function changeCursorCrosshair(){
 
 function verifyIfHasChangeOnInput(){
     InitThis();
+}
+
+function changeCursorText(){
+    $('#myCanvas').css('cursor','text');
+}
+
+function Text(){
+    $('#myCanvas').mouseup(function (e) {
+        x = e.pageX - $(this).offset().left;
+        y = e.pageY - $(this).offset().top;
+        captureText(x, y);
+    });
+}
+
+function insertText(x,y){
+    var tamanhoFonte = $('#selTextoTamanho').val();
+    var font = $("#selTextoFonte option:selected").text();
+    ctx.font = tamanhoFonte+'pt ' + font;
+    ctx.strokeStyle = $('#colorpickerField').val();
+    ctx.fillStyle = $('#colorpickerField2').val();
+    ctx.fillText(text, x, y);
+    ctx.strokeText(text, x, y);
+    text = null;
+}
+
+var text = "";
+function captureText(x,y){
+    var entrada = prompt("Insira um texto");   
+    if(entrada != null){
+        text = entrada;
+        insertText(x,y)
+    }
 }
