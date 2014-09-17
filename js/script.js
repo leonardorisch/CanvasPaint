@@ -213,7 +213,6 @@ function captureText(x,y){
 
 
 var selection = null;
-
 function SelectArea(){
     $('#myCanvas').mousedown(function (e) {
         mousePressed = true;
@@ -235,5 +234,22 @@ function SelectArea(){
 function clearAreaSelected(){
     if(selection){
         ctx.clearRect(selection.lastX, selection.lastY, selection.x, selection.y);
+        selection = null;
+    }
+}
+
+var imgDataOfAreaSelected = null;
+function copyArea(){
+    if(selection){
+        imgDataOfAreaSelected = ctx.getImageData(selection.lastX, selection.lastY, selection.x, selection.y);
+        selection = null;
+    }
+}
+
+function pasteAreaSelected(){
+    if(imgDataOfAreaSelected){
+        ctx.putImageData(imgDataOfAreaSelected,0,0);
+        selection = null;
+        imgDataOfAreaSelected = null;
     }
 }

@@ -30,8 +30,7 @@
 				</li>
 				<li>
 					<input type="radio" name="forma" value="selecionar" >Selecionar
-					<input type="image" src="images/selection.png" id="btSelecionarArea" class="buttons"  title="Selecionar uma area"/>			
-					<input type="image" src="images/copy.png"  id="btCopiarArea" class="buttons" title="Copiar area selecionada"/>					
+					<input type="image" src="images/copy.png"  id="btCopiarArea" class="buttons" title="Copiar area selecionada" onclick="copyArea()"/>				
 					<input type="image" src="images/erase.png" id="btLimparArea" class="buttons" title="Limpar area selecionada" onclick="clearAreaSelected()"/>
 				</li>
 				<li class="textOptions">
@@ -73,7 +72,7 @@
 			</ul>
 		</div>
 		
-		<div class="canvas-holder">
+		<div class="canvas-holder" onclick="pasteAreaSelected()">
 			<canvas id="myCanvas" width="800" height="500"></canvas>
 		</div>
     </body>
