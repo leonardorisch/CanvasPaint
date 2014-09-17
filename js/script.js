@@ -246,9 +246,9 @@ function copyArea(){
     }
 }
 
-function pasteAreaSelected(){
+function pasteAreaSelected(e){
     if(imgDataOfAreaSelected){
-        ctx.putImageData(imgDataOfAreaSelected,0,0);
+        ctx.putImageData(imgDataOfAreaSelected, e.offsetX, e.offsetY);
         selection = null;
         imgDataOfAreaSelected = null;
     }
