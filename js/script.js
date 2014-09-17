@@ -242,8 +242,19 @@ var imgDataOfAreaSelected = null;
 function copyArea(){
     if(selection){
         imgDataOfAreaSelected = ctx.getImageData(selection.lastX, selection.lastY, selection.x, selection.y);
+        
         selection = null;
     }
+}
+
+function negativate(){
+    var colors = imgDataOfAreaSelected.data;
+    for (var i = 0; i < colors.length; i += 4) {
+        colors[i] = 255 - colors[i];
+        colors[i+1] = 255 - colors[i+1];
+        colors[i+2] = 255 - colors[i+2];
+        colors[i+3] = 255;
+    };
 }
 
 function pasteAreaSelected(e){
