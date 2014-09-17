@@ -25,9 +25,11 @@ function InitThis() {
     else if (tool[3].checked) {
         Circle();
     }
-    else if (tool[4].checked) {
+    else if (tool[5].checked) {
         Text();
-    }    
+    }else if (tool[4].checked) { 
+        SelectArea();
+    }
 
     for (var i = 2; i<=100; i++){
         var opt = document.createElement('option');
@@ -206,5 +208,32 @@ function captureText(x,y){
     if(entrada != null){
         text = entrada;
         insertText(x,y)
+    }
+}
+
+
+var selection = null;
+
+function SelectArea(){
+    $('#myCanvas').mousedown(function (e) {
+        mousePressed = true;
+        lastX = e.pageX - $(this).offset().left;
+        lastY = e.pageY - $(this).offset().top;
+    });
+
+    $('#myCanvas').mouseup(function (e) {
+        mousePressed = false;
+        selection = {
+            lastX: lastX, 
+            lastY: lastY, 
+            x:  e.pageX - $(this).offset().left - lastX, 
+            y: e.pageY - $(this).offset().top - lastY
+        };
+    });
+}
+
+function clearAreaSelected(){
+    if(selection){
+        ctx.clearRect(selection.lastX, selection.lastY, selection.x, selection.y);
     }
 }
