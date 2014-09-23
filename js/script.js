@@ -25,20 +25,40 @@ function InitThis() {
     else if (tool[3].checked) {
         Circle();
     }
-    else if (tool[5].checked) {
+    else if (tool[4].checked) {
         Text();
-    }else if (tool[4].checked) { 
+    }else if (tool[5].checked) { 
         SelectArea();
     }
 
     if (tool[4].checked){
-        $.each($('.rgb'), function( index, value ) {
-            value.disabled = false
-        });
+        var textMenu = document.getElementsByClassName('text-menu');
+        for (var i = 0; i < textMenu.length; i++) {
+            textMenu[i].style.display = 'inline';
+        };
     } else {
-        $.each($('.rgb'), function( index, value ) {
-            value.disabled = true
-        });
+        var textMenu = document.getElementsByClassName('text-menu');
+        for (var i = 0; i < textMenu.length; i++) {
+            textMenu[i].style.display = 'none';
+        };
+    }
+
+    if (tool[5].checked){
+        //$.each($('.rgb'), function( index, value ) {
+        //    value.disabled = false
+        //});
+        var rgb = document.getElementsByClassName('rgb');
+        for (var i = 0; i < rgb.length; i++) {
+            rgb[i].style.display = 'inline';
+        };
+    } else {
+        //$.each($('.rgb'), function( index, value ) {
+        //    value.disabled = true
+        //});
+        var rgb = document.getElementsByClassName('rgb');
+        for (var i = 0; i < rgb.length; i++) {
+            rgb[i].style.display = 'none';
+        };
     }
 
     for (var i = 2; i<=100; i++){
@@ -115,7 +135,6 @@ function drawLine(x, y, isDown){
     ctx.lineWidth = $('#selWidth').val();
     ctx.moveTo(lastX, lastY);
     ctx.lineTo(x, y);
-    console.log(lastX, lastY, x, y)
     ctx.stroke();
 }
 

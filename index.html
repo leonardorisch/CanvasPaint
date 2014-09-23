@@ -28,14 +28,9 @@
 				<li>
 					<input type="radio" name="forma" value="circulo">Circulo
 				</li>
-				<li>
-					<input type="radio" name="forma" value="selecionar" >Selecionar
-					<input type="image" src="images/copy.png"  id="btCopiarArea" class="buttons" title="Copiar area selecionada" onclick="copyArea()"/>				
-					<input type="image" src="images/erase.png" id="btLimparArea" class="buttons" title="Limpar area selecionada" onclick="clearAreaSelected()"/>
-				</li>
 				<li class="textOptions">
 					<input type="radio" name="forma" id="btInserirTexto" value="texto" >Texto
-					<select id="selTextoFonte">
+					<select id="selTextoFonte" class="text-menu">
 						<option value="arial" selected>Arial</option>
 						<option value="courierNew">Courier New</option>   
 						<option value="georgia">Georgia</option>   
@@ -43,7 +38,7 @@
 						<option value="timesNewRoman">Times New Roman</option>   
 						<option value="verdana">Verdana</option>               
 					</select>
-					<select id="selTextoTamanho">
+					<select id="selTextoTamanho" class="text-menu">
 						<option value="8">8</option>
 						<option value="10">10</option>
 						<option value="12" selected="selected">12</option>
@@ -58,6 +53,23 @@
 					</select>
 				</li>
 				<li>
+					<input type="radio" name="forma" value="selecionar" id="rd-select" >Selecionar
+					<input type="image" src="images/copy.png"  id="btCopiarArea" class="buttons rgb" title="Copiar area selecionada" onclick="copyArea()"/>				
+					<input type="image" src="images/erase.png" id="btLimparArea" class="buttons rgb" title="Limpar area selecionada" onclick="clearAreaSelected()"/>
+				</li>
+				<li>
+					<span class='rgb'>R</span> <input type="text" id="red" class="rgb-input rgb">
+				</li>
+				<li>
+					<span class='rgb'>G</span> <input type="text" id="green" class="rgb-input rgb"> 
+				</li>
+				<li>
+					<span class='rgb'>B</span> <input type="text" id="blue" class="rgb-input rgb"> 
+				</li>
+				<li>
+					<button id="alterar" onclick="changeRgbToColorSelected();" class="rgb">Alterar 
+				</li>
+				<li>
 					Line width : 
 					<select id="selWidth">
 						<option value="1" selected>1</option>
@@ -68,18 +80,6 @@
 				</li>
 				<li>
 					FillColor :<input type="color" maxlength="6" size="6" id="colorpickerField2" value="ff0000">
-				</li>
-				<li>
-					R <input type="text" id="red" class="rgb-input rgb" disabled>
-				</li>
-				<li>
-					G <input type="text" id="green" class="rgb-input rgb" disabled> 
-				</li>
-				<li>
-					B <input type="text" id="blue" class="rgb-input rgb" disabled> 
-				</li>
-				<li>
-					<button id="alterar" onclick="changeRgbToColorSelected();" class="rgb" disabled>Alterar 
 				</li>
 			</ul>
 		</div>
