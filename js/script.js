@@ -31,6 +31,16 @@ function InitThis() {
         SelectArea();
     }
 
+    if (tool[4].checked){
+        $.each($('.rgb'), function( index, value ) {
+            value.disabled = false
+        });
+    } else {
+        $.each($('.rgb'), function( index, value ) {
+            value.disabled = true
+        });
+    }
+
     for (var i = 2; i<=100; i++){
         var opt = document.createElement('option');
         opt.value = i;
