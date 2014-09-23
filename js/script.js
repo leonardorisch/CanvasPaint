@@ -109,6 +109,8 @@ function drawLine(x, y, isDown){
     ctx.stroke();
 }
 
+
+
 function Rectangle(){
     $('#myCanvas').mousedown(function (e) {
         mousePressed = true;
@@ -257,6 +259,23 @@ function negativate(){
     };
 }
 
+function changeRgbToColorSelected(){
+        var image = ctx.getImageData(selection.lastX, selection.lastY, selection.x, selection.y)
+        var colors = image.data;
+        var r, g, b;
+        var val = $('#colorpickerField2').val();
+        r = $('#red').val();
+        g = $('#green').val();
+        b = $('#blue').val();
+        for (var i = 0; i < image.data.length; i += 4) {
+            image.data[i] = image.data[i] + (parseInt(r));
+            image.data[i+1] = image.data[i+1] + (parseInt(g));
+            image.data[i+2] = image.data[i+2] + (parseInt(b));
+            image.data[i+3] = 255;
+        };
+        ctx.putImageData(image, lastX, lastY);
+}
+
 function pasteAreaSelected(e){
     if(imgDataOfAreaSelected){
         ctx.putImageData(imgDataOfAreaSelected, e.offsetX, e.offsetY);
@@ -264,3 +283,4 @@ function pasteAreaSelected(e){
         imgDataOfAreaSelected = null;
     }
 }
+
